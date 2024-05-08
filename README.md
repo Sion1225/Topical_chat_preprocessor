@@ -5,7 +5,7 @@ The Topical-Chat dataset is already excellently organized in JSON files, but its
 
 Therefore, it returns the data in various forms to facilitate use in ML and DS.
 
-Currently, as a prototype, it only supports returning data in list type.
+Currently, as a prototype, it only supports conversations data and returning data in list type.
 
 ## Example code
 ```python
