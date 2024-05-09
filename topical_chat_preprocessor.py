@@ -66,14 +66,56 @@ class TopicalChatPreprocessor:
 
                 output.append([article_url, config, content_agent, content_message, content_sentiment, content_knowledge_source, content_turn_rating, conversation_rating])
 
-            #logging.debug("Return.")
+            return output
+        
+        elif self.output_type == 'dict':
+            output = {}
+            for i, data in enumerate(self.topical_raw_data):
+                article_url = []
+                config = []
+                content_agent = []
+                content_message = []
+                content_sentiment = []
+                content_knowledge_source = []
+                content_turn_rating = []
+                conversation_rating = [] #: keep original dictonary
+
+                for key in data.keys():
+                    article_url.append(data[key]['article_url'])
+                    config.append(data[key]['config'])
+
+                    agent = []
+                    message = []
+                    sentiment= []
+                    knowledge_source = []
+                    turn_rating = []
+                    for content in data[key]['content']:
+                        agent.append(content['agent'])
+                        message.append(content['message'])
+                        sentiment.append(content['sentiment'])
+                        knowledge_source.append(content['knowledge_source'])
+                        turn_rating.append(content['turn_rating'])
+
+                    content_agent.append(agent)
+                    content_message.append(message)
+                    content_sentiment.append(sentiment)
+                    content_knowledge_source.append(knowledge_source)
+                    content_turn_rating.append(turn_rating)
+                    conversation_rating.append(data[key]['conversation_rating'])
+
+                output.update({
+                    self.target_data[i]: {'article_url': article_url, 'config': config, 'content_agent': content_agent,
+                     'content_message': content_message, 'content_sentiment': content_sentiment,
+                     'content_knowledge_source': content_knowledge_source, 
+                     'content_turn_rating': content_turn_rating, 'conversation_rating': conversation_rating}})
+
             return output
                 
         
     def __call__(self, target_data:list = ['train', 'valid_freq', 'valid_rare'], output_type:str = 'list'):
         """
         Args:
-            target_data (tuple, list): target data for process. e.g.) ('train', 'test_freq'). default is ('train', 'valid_freq', 'valid_rare')
+            target_data (list): target data for process. e.g.) ['train', 'test_freq']. default is ['train', 'valid_freq', 'valid_rare']
             output_type (str): Output type of return. default is list.
 
         Returns:
@@ -85,7 +127,7 @@ class TopicalChatPreprocessor:
         self.output_type = output_type
         self.target_data = target_data
 
-        if output_type == 'list':
+        if output_type == 'list' or output_type == 'dict':
             return self.topical_chat_conversations_extractor()
         else:
             raise ValueError("Unexpected Value")
