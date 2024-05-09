@@ -74,3 +74,6 @@ listed_data = Tppre(['train','valid_freq','test_freq'])
 }
 ```
 The difference is that the data for each file is now organized into a dictionary with the file name as the key `file_name: data`, and within each data, additional keys(`article_url`, `config`, `content_agent`, `content_message`, `content_sentiment`, `content_knowledge_source`, `content_turn_rating`, `conversation_rating`) are used based on specific names. Other than these changes, it remains similar to the list type.
+
+## Reference
+Gopalakrishnan, Karthik, et al. "Topical-Chat: Towards Knowledge-Grounded Open-Domain Conversations.", Proc. INTERSPEECH 2019
