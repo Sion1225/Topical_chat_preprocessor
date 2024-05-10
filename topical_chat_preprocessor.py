@@ -1,5 +1,8 @@
+# Author = Siwon Seo
+
 import json
 import os
+from typing import List, Dict
 
 class TopicalChatPreprocessor:
     """Class for preprocessing Topical Chat
@@ -7,10 +10,14 @@ class TopicalChatPreprocessor:
     Args:
         topical_cat_dir (str): The path of the Topical_chat folder.
 
+    Returns:
+        TopicalChatPreprocessor Class.
+
     Note:
         Still building.
+        https:github.com/Sion1225/Topical_chat_preprocessor
     """
-    def __init__ (self, topical_chat_dir:str = "Topical_chat/"):
+    def __init__ (self, topical_chat_dir:str = "Topical_chat/") -> None:
         self.topical_chat_dir = topical_chat_dir
 
     def topical_chat_conversations_extractor(self, ):
@@ -112,7 +119,7 @@ class TopicalChatPreprocessor:
             return output
                 
         
-    def __call__(self, target_data:list = ['train', 'valid_freq', 'valid_rare'], output_type:str = 'list'):
+    def __call__(self, target_data:list = ['train', 'valid_freq', 'valid_rare'], output_type:str = 'list') -> List | Dict:
         """
         Args:
             target_data (list): target data for process. e.g.) ['train', 'test_freq']. default is ['train', 'valid_freq', 'valid_rare']
@@ -120,9 +127,11 @@ class TopicalChatPreprocessor:
 
         Returns:
             list['output_type']: extracted topical chat data.
+            dict{'output_type'}: extracted topical chat data.
 
         Note:
             Still making so there is only one option for 'output_type'.
+            https:github.com/Sion1225/Topical_chat_preprocessor
         """
         self.output_type = output_type
         self.target_data = target_data
